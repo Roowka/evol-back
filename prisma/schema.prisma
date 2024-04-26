@@ -1,0 +1,96 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_HOST")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Utilisateur {
+    id            Int             @id @default(autoincrement())
+    nom           String
+    prenom        String
+    mail          String          @unique
+    identifiant   String          @unique
+    motdepasse    String
+    createdAt     DateTime        @default(now())
+    Questionnaire Questionnaire[]
+    Candidature   Candidature[]
+}
+
+model Formation {
+    id               Int                @id @default(autoincrement())
+    ecole            Ecole              @relation(fields: [id], references: [id])
+    nom              String
+    titrerncp        String
+    description      String?
+    imageurl         String?
+    motscles         String[]
+    createdAt        DateTime           @default(now())
+    Metier_Formation Metier_Formation[]
+}
+
+model Ecole {
+    id          Int           @id @default(autoincrement())
+    nom         String
+    image       String?
+    ville       String
+    departement String
+    adresse     String
+    telephone   String?
+    mail        String
+    identifiant String
+    motdepasse  String
+    createdAt   DateTime      @default(now())
+    Formation   Formation[]
+    Candidature Candidature[]
+}
+
+model Metier {
+    id               Int                @id @default(autoincrement())
+    nom              String
+    description      String?
+    motscles         String[]
+    Metier_Formation Metier_Formation[]
+}
+
+model Candidature {
+    id        Int         @id @default(autoincrement())
+    autheur   Utilisateur @relation(fields: [autheurId], references: [id])
+    autheurId Int
+    ecole     Ecole       @relation(fields: [ecoleId], references: [id])
+    ecoleId   Int
+    texte     String
+    date      DateTime    @default(now())
+}
+
+model Questionnaire {
+    id                       Int         @id @default(autoincrement())
+    utilisateur              Utilisateur @relation(fields: [utilisateurId], references: [id])
+    utilisateurId            Int
+    liste_questions_reponses String[]
+    createdAt                DateTime    @default(now())
+}
+
+model QuestionReponse {
+    id       Int         @id @default(autoincrement())
+    question String
+    reponse  String
+    type     TypeReponse
+}
+
+model Metier_Formation {
+    id          Int       @id @default(autoincrement())
+    metier      Metier    @relation(fields: [metierId], references: [id])
+    metierId    Int
+    formation   Formation @relation(fields: [formationId], references: [id])
+    formationId Int
+}
+
+enum TypeReponse {
+    OuiNon
+    ChoixMultiple
+    Jauge
+    ReponseLibre
+}
