@@ -8,20 +8,22 @@ generator client {
 }
 
 model Utilisateur {
-    id            Int             @id @default(autoincrement())
-    nom           String
-    prenom        String
-    mail          String          @unique
-    identifiant   String          @unique
-    motdepasse    String
-    createdAt     DateTime        @default(now())
-    Questionnaire Questionnaire[]
-    Candidature   Candidature[]
+    id              Int               @id @default(autoincrement())
+    nom             String
+    prenom          String
+    mail            String            @unique
+    identifiant     String            @unique
+    motdepasse      String
+    createdAt       DateTime          @default(now())
+    Questionnaire   Questionnaire[]
+    Candidature     Candidature[]
+    QuestionReponse QuestionReponse[]
 }
 
 model Formation {
     id               Int                @id @default(autoincrement())
-    ecole            Ecole              @relation(fields: [id], references: [id])
+    ecole            Ecole              @relation(fields: [ecoleId], references: [id])
+    ecoleId          Int
     nom              String
     titrerncp        String
     description      String?
@@ -66,18 +68,19 @@ model Candidature {
 }
 
 model Questionnaire {
-    id                       Int         @id @default(autoincrement())
-    utilisateur              Utilisateur @relation(fields: [utilisateurId], references: [id])
-    utilisateurId            Int
-    liste_questions_reponses String[]
-    createdAt                DateTime    @default(now())
+    id            Int         @id @default(autoincrement())
+    utilisateur   Utilisateur @relation(fields: [utilisateurId], references: [id])
+    utilisateurId Int
+    createdAt     DateTime    @default(now())
 }
 
 model QuestionReponse {
-    id       Int         @id @default(autoincrement())
-    question String
-    reponse  String
-    type     TypeReponse
+    id              Int         @id @default(autoincrement())
+    questionnaire   Utilisateur @relation(fields: [questionnaireId], references: [id])
+    questionnaireId Int
+    question        String
+    reponse         String
+    type            TypeReponse
 }
 
 model Metier_Formation {
