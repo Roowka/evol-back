@@ -176,4 +176,71 @@ describe("Test des routes ecole", () => {
   });
 });
 
+//-------------------------------------------------------------
+
+describe("Test des routes formation", () => {
+  let idFormation;
+  let idEcole;
+
+  beforeAll(async () => {
+    const newEcole = {
+      nom: "MyDigitalSchool",
+      ville: "Annecy",
+      departement: "Haute-Savoie",
+      adresse: "3 rue de la Paix",
+      telephone: "0606060606",
+      mail: "MyDigitalSchool@gmail.com",
+      identifiant: "iammyschool",
+      motdepasse: "1234",
+    };
+    const resEcole = await request(app).post("/ecole").send(newEcole);
+    idEcole = resEcole.body.id;
+  });
+
+  it("POST /formation doit créer une nouvelle formation", async () => {
+    const newFormation = {
+      nom: "MBA Developpeur Web",
+      titrerncp: "12BIS",
+      description: "Super formation",
+      imageurl: "image.com",
+      motscles: ["developpeur", "web"],
+      ecoleId: idEcole,
+    };
+    const res = await request(app).post("/formation").send(newFormation);
+    idFormation = res.body.id;
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body).toHaveProperty("nom", "MBA Developpeur Web");
+  });
+
+  it("GET /formation doit renvoyer la liste des formations", async () => {
+    const res = await request(app).get("/formation");
+    expect(res.statusCode).toBe(200);
+  });
+
+  it("GET /formation/:id doit renvoyer une formation spécifique", async () => {
+    const res = await request(app).get("/formation/" + idFormation);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("id");
+  });
+
+  it("PUT /formation/:id doit modifier une formation", async () => {
+    const updatedFormation = { description: "Incroyable formation" };
+    const res = await request(app)
+      .put("/formation/" + idFormation)
+      .send(updatedFormation);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("description", "Incroyable formation");
+  });
+
+  it("DELETE /formation/:id doit supprimer une formation", async () => {
+    const res = await request(app).delete("/formation/" + idFormation);
+    expect(res.statusCode).toBe(200);
+  });
+
+  afterAll(async () => {
+    await request(app).delete("/ecole/" + idEcole);
+  });
+});
+
 module.exports = app;
