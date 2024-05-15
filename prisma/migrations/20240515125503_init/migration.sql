@@ -17,6 +17,7 @@ CREATE TABLE "Utilisateur" (
 -- CreateTable
 CREATE TABLE "Formation" (
     "id" SERIAL NOT NULL,
+    "ecoleId" INTEGER NOT NULL,
     "nom" TEXT NOT NULL,
     "titrerncp" TEXT NOT NULL,
     "description" TEXT,
@@ -69,7 +70,6 @@ CREATE TABLE "Candidature" (
 CREATE TABLE "Questionnaire" (
     "id" SERIAL NOT NULL,
     "utilisateurId" INTEGER NOT NULL,
-    "liste_questions_reponses" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Questionnaire_pkey" PRIMARY KEY ("id")
@@ -78,6 +78,7 @@ CREATE TABLE "Questionnaire" (
 -- CreateTable
 CREATE TABLE "QuestionReponse" (
     "id" SERIAL NOT NULL,
+    "questionnaireId" INTEGER NOT NULL,
     "question" TEXT NOT NULL,
     "reponse" TEXT NOT NULL,
     "type" "TypeReponse" NOT NULL,
@@ -101,7 +102,7 @@ CREATE UNIQUE INDEX "Utilisateur_mail_key" ON "Utilisateur"("mail");
 CREATE UNIQUE INDEX "Utilisateur_identifiant_key" ON "Utilisateur"("identifiant");
 
 -- AddForeignKey
-ALTER TABLE "Formation" ADD CONSTRAINT "Formation_id_fkey" FOREIGN KEY ("id") REFERENCES "Ecole"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Formation" ADD CONSTRAINT "Formation_ecoleId_fkey" FOREIGN KEY ("ecoleId") REFERENCES "Ecole"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Candidature" ADD CONSTRAINT "Candidature_autheurId_fkey" FOREIGN KEY ("autheurId") REFERENCES "Utilisateur"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -111,6 +112,9 @@ ALTER TABLE "Candidature" ADD CONSTRAINT "Candidature_ecoleId_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "Questionnaire" ADD CONSTRAINT "Questionnaire_utilisateurId_fkey" FOREIGN KEY ("utilisateurId") REFERENCES "Utilisateur"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "QuestionReponse" ADD CONSTRAINT "QuestionReponse_questionnaireId_fkey" FOREIGN KEY ("questionnaireId") REFERENCES "Utilisateur"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Metier_Formation" ADD CONSTRAINT "Metier_Formation_metierId_fkey" FOREIGN KEY ("metierId") REFERENCES "Metier"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
