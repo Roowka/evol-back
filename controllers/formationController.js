@@ -15,7 +15,7 @@ const GetFormationById = async (req, res) => {
   try {
     const formation = await prisma.formation.findUnique({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(formation);
@@ -48,7 +48,7 @@ const UpdateFormation = async (req, res) => {
   try {
     const formation = await prisma.formation.update({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
       data: {
         ecoleId: req.body.ecoleId,
@@ -70,7 +70,7 @@ const DeleteFormation = async (req, res) => {
   try {
     const formation = await prisma.formation.delete({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(formation);

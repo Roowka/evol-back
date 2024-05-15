@@ -15,7 +15,7 @@ const GetEcoleById = async (req, res) => {
   try {
     const ecole = await prisma.ecole.findUnique({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(ecole);
@@ -51,7 +51,7 @@ const UpdateEcole = async (req, res) => {
   try {
     const ecole = await prisma.ecole.update({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
       data: {
         nom: req.body.nom,
@@ -76,7 +76,7 @@ const DeleteEcole = async (req, res) => {
   try {
     const ecole = await prisma.ecole.delete({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(ecole);

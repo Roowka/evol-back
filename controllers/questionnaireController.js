@@ -15,7 +15,7 @@ const GetQuestionnaireById = async (req, res) => {
   try {
     const questionnaire = await prisma.questionnaire.findUnique({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(questionnaire);
@@ -51,7 +51,7 @@ const UpdateQuestionnaire = async (req, res) => {
   try {
     const questionnaire = await prisma.questionnaire.update({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
       data: {
         nom: req.body.nom,
@@ -76,7 +76,7 @@ const DeleteQuestionnaire = async (req, res) => {
   try {
     const questionnaire = await prisma.questionnaire.delete({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(questionnaire);

@@ -15,7 +15,7 @@ const GetMetierFormationById = async (req, res) => {
   try {
     const metier_formation = await prisma.metier_Formation.findUnique({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(metier_formation);
@@ -44,7 +44,7 @@ const UpdateMetierFormation = async (req, res) => {
   try {
     const metier_formation = await prisma.metier_Formation.update({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
       data: {
         nom: req.body.nom,
@@ -62,7 +62,7 @@ const DeleteMetierFormation = async (req, res) => {
   try {
     const metier_formation = await prisma.metier_Formation.delete({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(metier_formation);

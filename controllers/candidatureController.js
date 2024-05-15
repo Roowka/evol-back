@@ -15,7 +15,7 @@ const GetCandidatureById = async (req, res) => {
   try {
     const candidature = await prisma.candidature.findUnique({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(candidature);
@@ -45,7 +45,7 @@ const UpdateCandidature = async (req, res) => {
   try {
     const candidature = await prisma.candidature.update({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
       data: {
         autheurId: req.body.autheurId,
@@ -64,7 +64,7 @@ const DeleteCandidature = async (req, res) => {
   try {
     const candidature = await prisma.candidature.delete({
       where: {
-        id: req.params.id,
+        id: parseInt(req.params.id),
       },
     });
     res.status(200).json(candidature);
