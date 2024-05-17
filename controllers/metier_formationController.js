@@ -29,8 +29,8 @@ const CreateMetierFormation = async (req, res) => {
   try {
     const metier_formation = await prisma.metier_Formation.create({
       data: {
-        nom: req.body.nom,
-        image: req.body.image,
+        metierId: req.body.metierId,
+        formationId: req.body.formationId,
       },
     });
     res.status(201).json(metier_formation);
@@ -47,8 +47,8 @@ const UpdateMetierFormation = async (req, res) => {
         id: parseInt(req.params.id),
       },
       data: {
-        nom: req.body.nom,
-        image: req.body.image,
+        metierId: req.body.metierId,
+        formationId: req.body.formationId,
       },
     });
     res.status(200).json(metier_formation);

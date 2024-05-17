@@ -1,6 +1,3 @@
--- CreateEnum
-CREATE TYPE "TypeReponse" AS ENUM ('OuiNon', 'ChoixMultiple', 'Jauge', 'ReponseLibre');
-
 -- CreateTable
 CREATE TABLE "Utilisateur" (
     "id" SERIAL NOT NULL,
@@ -81,7 +78,6 @@ CREATE TABLE "QuestionReponse" (
     "questionnaireId" INTEGER NOT NULL,
     "question" TEXT NOT NULL,
     "reponse" TEXT NOT NULL,
-    "type" "TypeReponse" NOT NULL,
 
     CONSTRAINT "QuestionReponse_pkey" PRIMARY KEY ("id")
 );
@@ -114,7 +110,7 @@ ALTER TABLE "Candidature" ADD CONSTRAINT "Candidature_ecoleId_fkey" FOREIGN KEY 
 ALTER TABLE "Questionnaire" ADD CONSTRAINT "Questionnaire_utilisateurId_fkey" FOREIGN KEY ("utilisateurId") REFERENCES "Utilisateur"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "QuestionReponse" ADD CONSTRAINT "QuestionReponse_questionnaireId_fkey" FOREIGN KEY ("questionnaireId") REFERENCES "Utilisateur"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "QuestionReponse" ADD CONSTRAINT "QuestionReponse_questionnaireId_fkey" FOREIGN KEY ("questionnaireId") REFERENCES "Questionnaire"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Metier_Formation" ADD CONSTRAINT "Metier_Formation_metierId_fkey" FOREIGN KEY ("metierId") REFERENCES "Metier"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

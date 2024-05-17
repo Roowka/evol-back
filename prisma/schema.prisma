@@ -8,16 +8,15 @@ generator client {
 }
 
 model Utilisateur {
-    id              Int               @id @default(autoincrement())
-    nom             String
-    prenom          String
-    mail            String            @unique
-    identifiant     String            @unique
-    motdepasse      String
-    createdAt       DateTime          @default(now())
-    Questionnaire   Questionnaire[]
-    Candidature     Candidature[]
-    QuestionReponse QuestionReponse[]
+    id            Int             @id @default(autoincrement())
+    nom           String
+    prenom        String
+    mail          String          @unique
+    identifiant   String          @unique
+    motdepasse    String
+    createdAt     DateTime        @default(now())
+    Questionnaire Questionnaire[]
+    Candidature   Candidature[]
 }
 
 model Formation {
@@ -68,19 +67,19 @@ model Candidature {
 }
 
 model Questionnaire {
-    id            Int         @id @default(autoincrement())
-    utilisateur   Utilisateur @relation(fields: [utilisateurId], references: [id])
-    utilisateurId Int
-    createdAt     DateTime    @default(now())
+    id              Int               @id @default(autoincrement())
+    utilisateur     Utilisateur       @relation(fields: [utilisateurId], references: [id])
+    utilisateurId   Int
+    createdAt       DateTime          @default(now())
+    QuestionReponse QuestionReponse[]
 }
 
 model QuestionReponse {
-    id              Int         @id @default(autoincrement())
-    questionnaire   Utilisateur @relation(fields: [questionnaireId], references: [id])
+    id              Int           @id @default(autoincrement())
+    questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])
     questionnaireId Int
     question        String
     reponse         String
-    type            TypeReponse
 }
 
 model Metier_Formation {
@@ -89,11 +88,4 @@ model Metier_Formation {
     metierId    Int
     formation   Formation @relation(fields: [formationId], references: [id])
     formationId Int
-}
-
-enum TypeReponse {
-    OuiNon
-    ChoixMultiple
-    Jauge
-    ReponseLibre
 }

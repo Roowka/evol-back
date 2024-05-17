@@ -1,24 +1,15 @@
+const questionnaireController = require("../controllers/questionnaireController");
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.get("/", questionnaireController.GetQuestionnaire);
 
-router.get("/:id", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.get("/:id", questionnaireController.GetQuestionnaireById);
 
-router.post("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.post("/", questionnaireController.CreateQuestionnaire);
 
-router.put("/:id", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.put("/:id", questionnaireController.UpdateQuestionnaire);
 
-router.delete("/:id", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.delete("/:id", questionnaireController.DeleteQuestionnaire);
 
 module.exports = router;

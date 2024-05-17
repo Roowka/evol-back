@@ -1,24 +1,15 @@
+const question_reponseController = require("../controllers/questionReponseController");
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.get("/", question_reponseController.GetQuestionReponse);
 
-router.get("/:id", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.get("/:id", question_reponseController.GetQuestionReponseById);
 
-router.post("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.post("/", question_reponseController.CreateQuestionReponse);
 
-router.put("/:id", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.put("/:id", question_reponseController.UpdateQuestionReponse);
 
-router.delete("/:id", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.delete("/:id", question_reponseController.DeleteQuestionReponse);
 
 module.exports = router;

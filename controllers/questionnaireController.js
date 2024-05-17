@@ -29,15 +29,7 @@ const CreateQuestionnaire = async (req, res) => {
   try {
     const questionnaire = await prisma.questionnaire.create({
       data: {
-        nom: req.body.nom,
-        image: req.body.image,
-        ville: req.body.ville,
-        departement: req.body.departement,
-        adresse: req.body.adresse,
-        telephone: req.body.telephone,
-        mail: req.body.mail,
-        identifiant: req.body.identifiant,
-        motdepasse: req.body.motdepasse,
+        utilisateurId: req.body.utilisateurId,
       },
     });
     res.status(201).json(questionnaire);
@@ -54,15 +46,7 @@ const UpdateQuestionnaire = async (req, res) => {
         id: parseInt(req.params.id),
       },
       data: {
-        nom: req.body.nom,
-        image: req.body.image,
-        ville: req.body.ville,
-        departement: req.body.departement,
-        adresse: req.body.adresse,
-        telephone: req.body.telephone,
-        mail: req.body.mail,
-        identifiant: req.body.identifiant,
-        motdepasse: req.body.motdepasse,
+        utilisateurId: req.body.utilisateurId,
       },
     });
     res.status(200).json(questionnaire);
