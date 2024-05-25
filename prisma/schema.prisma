@@ -21,7 +21,8 @@ model Utilisateur {
 
 model Formation {
     id               Int                @id @default(autoincrement())
-    ecole            Ecole              @relation(fields: [id], references: [id])
+    ecole            Ecole              @relation(fields: [ecoleId], references: [id])
+    ecoleId          Int
     nom              String
     titrerncp        String
     description      String?
@@ -66,18 +67,19 @@ model Candidature {
 }
 
 model Questionnaire {
-    id                       Int         @id @default(autoincrement())
-    utilisateur              Utilisateur @relation(fields: [utilisateurId], references: [id])
-    utilisateurId            Int
-    liste_questions_reponses String[]
-    createdAt                DateTime    @default(now())
+    id              Int               @id @default(autoincrement())
+    utilisateur     Utilisateur       @relation(fields: [utilisateurId], references: [id])
+    utilisateurId   Int
+    createdAt       DateTime          @default(now())
+    QuestionReponse QuestionReponse[]
 }
 
 model QuestionReponse {
-    id       Int         @id @default(autoincrement())
-    question String
-    reponse  String
-    type     TypeReponse
+    id              Int           @id @default(autoincrement())
+    questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])
+    questionnaireId Int
+    question        String
+    reponse         String
 }
 
 model Metier_Formation {
@@ -86,11 +88,4 @@ model Metier_Formation {
     metierId    Int
     formation   Formation @relation(fields: [formationId], references: [id])
     formationId Int
-}
-
-enum TypeReponse {
-    OuiNon
-    ChoixMultiple
-    Jauge
-    ReponseLibre
 }
