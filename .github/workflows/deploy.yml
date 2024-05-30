@@ -33,6 +33,11 @@ jobs:
       # Lancement de PostgreSQL
       - name: Démarrage de PostgreSQL
         run: docker-compose up -d
+        env:
+          POSTGRES_CONTAINER_NAME: evol-postgres
+          POSTGRES_USER: evoladmin
+          POSTGRES_PASSWORD: evolpassword
+          POSTGRES_DB: evol-db
       
       # Attente de PostgreSQL
       - name: Attente de PostgreSQL
