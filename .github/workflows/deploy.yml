@@ -38,7 +38,7 @@ jobs:
       - name: Attente de PostgreSQL
         run: |
           echo "En attente de PostgreSQL..."
-          while ! docker exec evol-postgres pg_isready -U evoladmin; do
+          while ! docker exec ${POSTGRES_CONTAINER_NAME} pg_isready -U ${POSTGRES_USER}; do
             sleep 1
           done
       
