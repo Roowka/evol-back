@@ -22,28 +22,25 @@ jobs:
           cache: 'npm'
       - run: npm install
       
-      # Load .env file and set environment variables
-      - name: Load environment variables
-        run: |
-          if [ -f .env.test ]; then
-            export $(cat .env.test | xargs)
-          fi
+      # Changement du .env
+      - name: Utilisation .env.test
+        run: cp .env.test .env
 
-      # Start PostgreSQL service with Docker Compose
-      - name: Start PostgreSQL service
+      # Lancement de PostgreSQL
+      - name: Démarrage de PostgreSQL
         run: docker-compose up -d
       
-      # Wait for PostgreSQL to be ready
-      - name: Wait for PostgreSQL
+      # Attente de PostgreSQL
+      - name: Attente de PostgreSQL
         run: |
-          echo "Waiting for PostgreSQL to be ready..."
-          while ! docker exec ${{ secrets.POSTGRES_CONTAINER_NAME }} pg_isready -U ${{ secrets.POSTGRES_USER }}; do
+          echo "En attente de PostgreSQL..."
+          while ! docker exec ${POSTGRES_CONTAINER_NAME} pg_isready -U ${POSTGRES_USER}; do
             sleep 1
           done
       
-      # Run tests
+      # Lancement des tests
       - run: npm test
 
-      # Stop and remove Docker containers
-      - name: Stop and remove Docker containers
+      # Suppression des containers
+      - name: Arrêt des container
         run: docker-compose down
