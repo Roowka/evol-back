@@ -27,7 +27,7 @@ jobs:
         run: cp .env.test .env
 
       - name: Setup de PostgreSQL
-        run: docker run -d -name evol-postgres -p 5432 -e POSTGRES_USER=evoladmin -e POSTGRES_PASSWORD=evolpassword -e POSTGRES_DB=evol-db postgres:latest
+        run: docker run -d --name evol-postgres -p 5432 -e POSTGRES_USER=evoladmin -e POSTGRES_PASSWORD=evolpassword -e POSTGRES_DB=evol-db postgres:latest
 
       - name: Wait for PostgreSQL
         run: |
