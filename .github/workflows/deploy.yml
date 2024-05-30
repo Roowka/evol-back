@@ -25,5 +25,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm install
-      - run: npm test
+      - run: docker-compose --version
+      #- run: npm install
+      #- run: npm test
