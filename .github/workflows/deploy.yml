@@ -26,6 +26,10 @@ jobs:
       - name: Utilisation .env.test
         run: cp .env.test .env
 
+      # Création du volume Docker
+      - name: Création volume evol-postgres
+        run: docker volume create evol-postgres
+
       # Lancement de PostgreSQL
       - name: Démarrage de PostgreSQL
         run: docker-compose up -d
@@ -44,3 +48,7 @@ jobs:
       # Suppression des containers
       - name: Arrêt des container
         run: docker-compose down
+
+       # Suppression du volume
+      - name: Suppression de evol-postgres
+        run: docker volume rm evol-postgres
