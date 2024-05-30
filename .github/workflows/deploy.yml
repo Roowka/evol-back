@@ -27,7 +27,7 @@ jobs:
         run: cp .env.test .env
 
       - name: Génération schema Prisma
-        run: prisma generate 
+        run: npx prisma generate 
 
       - name: Setup de PostgreSQL
         run: docker run -d --name evol-postgres -p 5432 -e POSTGRES_USER=evoladmin -e POSTGRES_PASSWORD=evolpassword -e POSTGRES_DB=evol-db -e POSTGRES_PRISMA_HOST="postgresql://evoladmin:evolpassword@localhost:5432/evol-db?schema=public" postgres:latest
