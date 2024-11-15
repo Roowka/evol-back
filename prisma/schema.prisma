@@ -13,7 +13,15 @@ model Utilisateur {
     prenom        String
     mail          String          @unique
     identifiant   String          @unique
+    age           Int
+    tel           String          @unique
+    adresse       String
+    cp            String
+    ville         String
+    pays          String
     motdepasse    String
+    sexe          String
+    photo         String
     createdAt     DateTime        @default(now())
     Questionnaire Questionnaire[]
     Candidature   Candidature[]
@@ -43,6 +51,7 @@ model Ecole {
     mail        String
     identifiant String
     motdepasse  String
+    kbis        String
     createdAt   DateTime      @default(now())
     Formation   Formation[]
     Candidature Candidature[]

@@ -8,6 +8,8 @@ router.get("/:id", utilisateurController.GetUserById);
 
 router.post("/", utilisateurController.CreateUser);
 
+router.post("/login", utilisateurController.LoginUser);
+
 router.put("/:id", utilisateurController.UpdateUser);
 
 router.delete("/:id", utilisateurController.DeleteUser);
