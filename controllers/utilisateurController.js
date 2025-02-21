@@ -28,24 +28,17 @@ const GetUserById = async (req, res) => {
 
 const CreateUser = async (req, res) => {
   try {
+    console.log("udegdgegdo", req.body);
     const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
-    const hashedPassword = await bcrypt.hash(req.body.motdepasse, saltRounds);
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     const user = await prisma.utilisateur.create({
       data: {
-        nom: req.body.nom,
-        prenom: req.body.prenom,
-        mail: req.body.mail,
-        identifiant: req.body.identifiant,
+        nom: req.body.lastname,
+        prenom: req.body.name,
+        mail: req.body.email,
+        identifiant: req.body.username,
         motdepasse: hashedPassword,
-        age: req.body.age,
-        sexe: req.body.sexe,
-        tel: req.body.tel,
-        adresse: req.body.adresse,
-        ville: req.body.ville,
-        cp: req.body.cp,
-        pays: req.body.pays,
-        photo: req.body.photo,
       },
     });
     res.status(201).json(user);

@@ -1,5 +1,13 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html
+  head
+    title Evol-API
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")
+  body(class="bg-light")
+    .container.text-center.mt-5
+      h1.display-4 Evol-API
+      p.lead Bienvenue sur l'API de l'application Evol.
+      img.mt-4(src="../images/evol-logo.png" width="400" alt="API Image")
+      p.mt-3.text-muted Cette API est dédiée à l'application Evol.

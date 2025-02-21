@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Ecole" ALTER COLUMN "kbis" DROP NOT NULL;

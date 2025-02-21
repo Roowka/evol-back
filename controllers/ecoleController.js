@@ -30,7 +30,6 @@ const CreateEcole = async (req, res) => {
     const ecole = await prisma.ecole.create({
       data: {
         nom: req.body.nom,
-        image: req.body.image,
         ville: req.body.ville,
         departement: req.body.departement,
         adresse: req.body.adresse,

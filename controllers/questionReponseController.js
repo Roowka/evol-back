@@ -13,12 +13,13 @@ const GetQuestionReponse = async (req, res) => {
 
 const GetQuestionReponseById = async (req, res) => {
   try {
-    const questionReponse = await prisma.questionReponse.findUnique({
+    console.log(req.params.id);
+    const questionsReponses = await prisma.questionReponse.findFirst({
       where: {
-        id: parseInt(req.params.id),
+        questionnaireId: parseInt(req.params.id),
       },
     });
-    res.status(200).json(questionReponse);
+    res.status(200).json(questionsReponses);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);

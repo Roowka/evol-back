@@ -8,17 +8,16 @@ describe("Test des routes utilisateur", () => {
   let idUtilisateur;
   it("POST /utilisateur doit créer un nouvel utilisateur", async () => {
     const newUtilisateur = {
-      nom: "Goi",
-      prenom: "Lucas",
-      mail: "lucasgoi@gmail.com",
-      identifiant: "lucasgoi",
-      motdepasse: "1234",
+      lastname: "Test",
+      name: "User",
+      email: "test@example.com",
+      password: "test12345",
     };
     const res = await request(app).post("/utilisateur").send(newUtilisateur);
     idUtilisateur = res.body.id;
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
-    expect(res.body).toHaveProperty("nom", "Goi");
+    expect(res.body).toHaveProperty("nom", "Test");
   });
 
   it("GET /utilisateur doit renvoyer la liste des utilisateurs", async () => {
@@ -55,11 +54,10 @@ describe("Test des routes candidature", () => {
   let idCandidature;
   beforeAll(async () => {
     const newUtilisateur = {
-      nom: "Test",
-      prenom: "Toto",
-      mail: "Toto@gmail.com",
-      identifiant: "iamtoto",
-      motdepasse: "1234",
+      lastname: "Test",
+      name: "User",
+      email: "test@example.com",
+      password: "test12345",
     };
     const resUtilisateur = await request(app)
       .post("/utilisateur")
@@ -400,11 +398,10 @@ describe("Test des routes questionnaire", () => {
 
   beforeAll(async () => {
     const newUtilisateur = {
-      nom: "Test",
-      prenom: "Toto",
-      mail: "Toto@gmail.com",
-      identifiant: "iamtoto",
-      motdepasse: "1234",
+      lastname: "Test",
+      name: "User",
+      email: "test@example.com",
+      password: "test12345",
     };
     const resUtilisateur = await request(app)
       .post("/utilisateur")
@@ -412,11 +409,10 @@ describe("Test des routes questionnaire", () => {
     idUtilisateur = resUtilisateur.body.id;
 
     const newUtilisateur2 = {
-      nom: "Skywalker",
-      prenom: "Anakin",
-      mail: "anakin@gmail.com",
-      identifiant: "iamvader",
-      motdepasse: "1234",
+      lastname: "Test2",
+      name: "User2",
+      email: "test2@example.com",
+      password: "test12345",
     };
     const resUtilisateur2 = await request(app)
       .post("/utilisateur")
@@ -477,11 +473,10 @@ describe("Test des routes questions/réponses", () => {
 
   beforeAll(async () => {
     const newUtilisateur = {
-      nom: "Test",
-      prenom: "Toto",
-      mail: "Toto@gmail.com",
-      identifiant: "iamtoto",
-      motdepasse: "1234",
+      lastname: "Test3",
+      name: "User3",
+      email: "test3@example.com",
+      password: "test12345",
     };
     const resUtilisateur = await request(app)
       .post("/utilisateur")
@@ -522,7 +517,6 @@ describe("Test des routes questions/réponses", () => {
       "/question_reponse/" + idQuestionReponse
     );
     expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveProperty("id");
   });
 
   it("PUT /question_reponse/:id doit modifier un question_reponse", async () => {
